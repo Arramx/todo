@@ -1,9 +1,9 @@
 <template>
 <div class="todo-item" :class="{'is-done':todo.done}">
     <p>
-        <input type="checkbox" v-on:change="changeComplete"/>
+        <input type="checkbox" @change="changeComplete"/>
         {{ todo.text }}
-        <button class="del">X</button>
+        <button class="del" @click="$emit('del-todo', todo.id)">X</button>
     </p>
 </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <Header />
-    <Todos :todos="todos"/>
+    <Todos :todos="todos" @del-todo="delTodo"/>
 
 </div>
 </template>
@@ -36,6 +36,11 @@ export default {
                     done: false
                 }
             ]
+        }
+    },
+    methods: {
+        delTodo(id) {
+            this.todos = this.todos.filter(a => a.id !== id);
         }
     }
 }
