@@ -24,7 +24,7 @@ export default {
 .todo-item {
     background: #f4f4f4;
     padding: 10px;
-    border-bottom: 1px #ccc dotted;
+    border-bottom: 1px #ccc solid;
 }
 
 .is-done {
@@ -37,7 +37,7 @@ export default {
     background: rgb(240, 0, 0);
     color: white;
     cursor: pointer;
-    padding: 5px 8px;
+    padding: 5px 9px;
     float: right;
 }
 </style>
