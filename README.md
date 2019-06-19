@@ -1,2 +1,2 @@
 # todo
-Todo list in Vue.js
+Todo list created in Vue.js and Express.js
