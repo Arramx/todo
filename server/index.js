@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const cors = require('cors');
 
 const db = mysql.createConnection({
     'host': 'localhost',
@@ -10,16 +11,17 @@ const db = mysql.createConnection({
 
 const app = express();
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
     console.log('Server running...');
-})
+});
 
 app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
+app.use(cors());
 
 
 app.get('/api/todos', (req, res) => {
@@ -28,17 +30,17 @@ app.get('/api/todos', (req, res) => {
     db.query(sql, (err, results) => {
         if (err) throw err;
         res.status(200).json(results);
-    })
+    });
 });
 
 app.post('/api/create', (req, res) => {
 
-    if (!req.body.title) {
+    if (!req.body.text) {
         res.status(400).json({
-            'msq': 'Error. No todo title.'
+            'msg': 'Error. No todo text.'
         });
     } else {
-        let sql = `INSERT INTO todos(title) VALUES (${db.escape(req.body.title)})`;
+        let sql = `INSERT INTO todos(text, done) VALUES (${db.escape(req.body.text)}, 0)`;
 
         db.query(sql, (err, result) => {
             if (err) throw err;
@@ -58,3 +60,12 @@ app.delete('/api/delete/:id', (req, res) => {
 
     });
 });
+
+app.put('/api/check/:id/:status', (req, res) => {
+    let sql = `UPDATE todos SET done=${db.escape(req.params.status)} WHERE id=${db.escape(req.params.id)}`;
+
+    db.query(sql, (err, result) => {
+        if(err) throw err;
+        res.status(200).json(result);
+    })
+})

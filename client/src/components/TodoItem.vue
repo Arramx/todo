@@ -1,7 +1,7 @@
 <template>
-<div class="todo-item" :class="{'is-done':todo.done}">
+<div class="todo-item" :class="{'is-done':todo.done == 1}">
     <p>
-        <input type="checkbox" @change="changeComplete"/>
+        <input type="checkbox" @change="$emit('check-todo', todo)"/>
         {{ todo.text }}
         <button class="del" @click="$emit('del-todo', todo.id)">X</button>
     </p>
@@ -11,12 +11,7 @@
 <script>
 export default {
     name: 'TodoItem',
-    props: ['todo'],
-    methods: {
-        changeComplete() {
-            this.todo.done = !this.todo.done;
-        }
-    }
+    props: ['todo']
 }
 </script>
 

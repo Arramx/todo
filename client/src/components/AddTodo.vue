@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import uuid from 'uuid';
 export default {
     name: 'AddTodo',
     data() {
@@ -16,15 +15,8 @@ export default {
     },
     methods: {
         addTodo() {
-            const todo = {
-                id: uuid.v4(),
-                text: this.newTodo,
-                done: false
-            }
-
+            this.$emit('add-todo', this.newTodo);
             this.newTodo = '';
-
-            this.$emit('add-todo', todo);
         }
     }
 }
